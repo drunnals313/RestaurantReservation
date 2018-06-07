@@ -7,15 +7,17 @@ var path = require("path");
 // Sets up the Express App
 // =============================================================
 var app = express();
+
+
 var PORT = process.env.PORT || 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Star Wars Characters (DATA)
+// Star Wars reservations (DATA)
 // =============================================================
-var characters = [
+var reservations = [
   {
     routeName: "yoda",
     name: "Yoda",
@@ -51,28 +53,28 @@ app.get("/add", function(req, res) {
   res.sendFile(path.join(__dirname, "reservations.html"));
 });
 
-// Displays all characters
-app.get("/api/characters", function(req, res) {
-  return res.json(characters);
+// Displays all reservations
+app.get("/api/reservations", function(req, res) {
+  return res.json(reservations);
 });
 
 // Displays a single character, or returns false
-app.get("/api/characters/:character", function(req, res) {
+app.get("/api/reservations/:character", function(req, res) {
   var chosen = req.params.character;
 
   console.log(chosen);
 
-  for (var i = 0; i < characters.length; i++) {
-    if (chosen === characters[i].routeName) {
-      return res.json(characters[i]);
+  for (var i = 0; i < reservations.length; i++) {
+    if (chosen === reservations[i].routeName) {
+      return res.json(reservations[i]);
     }
   }
 
   return res.json(false);
 });
 
-// Create New Characters - takes in JSON input
-app.post("/api/characters", function(req, res) {
+// Create New reservations - takes in JSON input
+app.post("/api/reservations", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body-parser middleware
   var newcharacter = req.body;
@@ -83,7 +85,7 @@ app.post("/api/characters", function(req, res) {
 
   console.log(newcharacter);
 
-  characters.push(newcharacter);
+  reservations.push(newcharacter);
 
   res.json(newcharacter);
 });
