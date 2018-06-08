@@ -1,5 +1,9 @@
 // Dependencies
 // =============================================================
+
+/// latest edit
+
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
@@ -46,11 +50,14 @@ var reservations = [
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "tables.html"));
+  res.sendFile(path.join(__dirname, "home.html"));
 });
 
-app.get("/add", function(req, res) {
-  res.sendFile(path.join(__dirname, "reservations.html"));
+app.get("/reserve", function(req, res) {
+  res.sendFile(path.join(__dirname, "reserve.html"));
+});
+app.get("/tables", function(req, res) {
+  res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 // Displays all reservations
